@@ -10,28 +10,29 @@
 
 struct node {
     //this is a node in a linked list, designed for our program
-    struct node* next;
-    struct node* prev;
-    char* word; //the value in the node (a word)
+    struct node *next;
+    struct node *prev;
+    char *word; //the value in the node (a word)
     bool used; //indicates if the word was already used for the note
 };
 
 struct linked_list {
     //this is a linked list struct
-    struct node* first;
-    struct node* last;
+    struct node *first;
+    struct node *last;
 };
 
 char* readline();
 char** split_string(char*);
-bool search_in_list(struct linked_list* list, char* word_to_find);
-void list_push(struct linked_list* list, char* this_word);
-void free_list(struct linked_list* list);
 void checkMagazine(int magazine_count, char** magazine, int note_count, char** note);
 
-bool search_in_list(struct linked_list* list, char* word_to_find) {
+bool search_in_list(struct linked_list *list, char *word_to_find);
+void list_push(struct linked_list *list, char *this_word);
+void free_list(struct linked_list *list);
+
+bool search_in_list(struct linked_list *list, char *word_to_find) {
     //run through the list, searching for an unused node with a specific value
-    struct node* current_node = list->first;
+    struct node *current_node = list->first;
     while (current_node != NULL) {
         if (strcmp(current_node->word, word_to_find) == 0) {
             if (current_node->used == false) {
@@ -44,9 +45,9 @@ bool search_in_list(struct linked_list* list, char* word_to_find) {
     return false;
 }
 
-void list_push(struct linked_list* list, char* this_word) {
+void list_push(struct linked_list *list, char *this_word) {
     //creates a node with a specific value, and adds it to the end of the list
-    struct node* new_node = malloc(sizeof(struct node));
+    struct node *new_node = malloc(sizeof(struct node));
     new_node->word = this_word;
     new_node->next = NULL;
     new_node->prev = list->last;
@@ -61,10 +62,10 @@ void list_push(struct linked_list* list, char* this_word) {
     list->last = new_node;
 }
 
-void free_list(struct linked_list* list) {
+void free_list(struct linked_list *list) {
     // frees the list from memory
-    struct node* current_node = list->first;
-    struct node* next_node;
+    struct node *current_node = list->first;
+    struct node *next_node;
     while (current_node != NULL) {
         next_node = current_node->next;
         free(current_node);
@@ -76,7 +77,7 @@ void free_list(struct linked_list* list) {
 // Complete the checkMagazine function below.
 void checkMagazine(int magazine_count, char** magazine, int note_count, char** note) {
     // checks if it's possible to make the note using the magazine
-    struct linked_list* magazine_words = malloc(sizeof(struct linked_list));
+    struct linked_list *magazine_words = malloc(sizeof(struct linked_list));
     magazine_words->first = NULL;
     magazine_words->last = NULL;
 
